@@ -7,6 +7,8 @@ function changeSongName(songName) {
   songName = "&emsp;&emsp;" + songName + "&emsp;&emsp;";
   songNameDiv.innerHTML = songName;
   songNameDiv2.innerHTML = songName;
+  songNameDiv.style.animationDuration = songNameDiv.offsetWidth / 30 + "s";
+  songNameDiv2.style.animationDuration = songNameDiv.offsetWidth / 30 + "s";
 }
 
 function changeImage(imageUrl) {
