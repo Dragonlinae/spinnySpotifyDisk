@@ -21,7 +21,7 @@ const params = new URLSearchParams(url.search);
 
 var forceRefresh = params.get('forceRefresh') !== 'false';
 
-if (!access_token) {
+if (!access_token || access_token == "undefined") {
   access_token = params.get('access_token');
   refresh_token = params.get('refresh_token');
 }
