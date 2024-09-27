@@ -14,7 +14,7 @@
   grid-template-columns: 1fr;
   max-width: min-content;
   overflow-x: hidden;
-  translate: 64px 1px;
+  transform: translate(64px, 1px);
   background-color: #000000;
   color: #ffffff;
   mask-image: linear-gradient(to left, black, transparent);
@@ -37,7 +37,7 @@
 }
 
 .songNameOffset {
-  translate: 100% 0;
+  animation: marquee2 10s linear infinite;
 }
 
 @keyframes marquee {
@@ -47,6 +47,16 @@
 
   100% {
     transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee2 {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
   }
 }
 
