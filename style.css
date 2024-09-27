@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  justify-content: right;
+}
+
+.same-grid {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
+.name {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: min-content;
+  overflow-x: hidden;
+  translate: 64px 0;
+}
+
+.songName {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: min-content;
+  animation: marquee 10s linear infinite;
+}
+
+.songNameOffset {
+  translate: 100% 0;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.image {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.songImage {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  background-blend-mode: luminosity;
+  mask-image: url(cdmask2.png);
+  mask-mode: luminance;
+  mask-size: contain;
+  animation: rotate 10s linear infinite;
+}
+
+.songImageBack {
+  width: 128px;
+  height: 128px;
+  background-color: white;
+  mask-image: url(cdmask2.png);
+  mask-size: contain;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
