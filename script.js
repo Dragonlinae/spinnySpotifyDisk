@@ -13,9 +13,6 @@ function changeImage(imageUrl) {
   songImage.src = imageUrl;
 }
 
-var access_token = localStorage.getItem("access_token");
-var refresh_token = localStorage.getItem("refresh_token");
-
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
 
@@ -26,6 +23,11 @@ function setTokensFromUrl() {
   refresh_token = params.get("refresh_token");
   localStorage.setItem("access_token", access_token);
   localStorage.setItem("refresh_token", refresh_token);
+}
+
+function setTokensFromStorage() {
+  access_token = localStorage.getItem("access_token");
+  refresh_token = localStorage.getItem("refresh_token");
 }
 
 const refreshToken = async () => {
@@ -48,6 +50,7 @@ const refreshToken = async () => {
   const body = await fetch(url, payload);
   const response = await body.json();
 
+  console.log(response);
   if (!response.ok) {
     if (access_token != params.get("access_token")) {
       setTokensFromUrl();
@@ -73,6 +76,7 @@ function refresh() {
       }
     })
       .then(response => {
+        console.log(response);
         if (!response.ok) {
           throw response;
         }
@@ -97,5 +101,9 @@ function refresh() {
   }
 }
 
+setTokensFromStorage();
+if (!access_token) {
+  setTokensFromUrl();
+}
 refresh();
 setInterval(refresh, 5000);
