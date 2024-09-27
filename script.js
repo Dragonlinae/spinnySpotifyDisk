@@ -4,7 +4,7 @@ var songImage = document.getElementById("songImage");
 const clientId = "a8bf0b0fd7ee48c092792c75b493c2c3";
 
 function changeSongName(songName) {
-  songName = "&emsp;" + songName + "&emsp;";
+  songName = "&emsp;&emsp;" + songName + "&emsp;&emsp;";
   songNameDiv.innerHTML = songName;
   songNameDiv2.innerHTML = songName;
 }
