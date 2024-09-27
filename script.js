@@ -1,7 +1,7 @@
 var songNameDiv = document.getElementById("songName");
 var songNameDiv2 = document.getElementById("songName2");
 var songImage = document.getElementById("songImage");
-const clientId = 'a8bf0b0fd7ee48c092792c75b493c2c3';
+const clientId = "a8bf0b0fd7ee48c092792c75b493c2c3";
 
 function changeSongName(songName) {
   songName = "&emsp;" + songName + "&emsp;";
@@ -13,32 +13,34 @@ function changeImage(imageUrl) {
   songImage.src = imageUrl;
 }
 
-var access_token = localStorage.getItem('access_token');
-var refresh_token = localStorage.getItem('refresh_token');
+var access_token = localStorage.getItem("access_token");
+var refresh_token = localStorage.getItem("refresh_token");
 
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
 
-var forceRefresh = params.get('forceRefresh') !== 'false';
+var forceRefresh = params.get("forceRefresh") !== "false";
 
-if (!access_token || access_token == "undefined") {
-  access_token = params.get('access_token');
-  refresh_token = params.get('refresh_token');
+function setTokensFromUrl() {
+  access_token = params.get("access_token");
+  refresh_token = params.get("refresh_token");
+  localStorage.setItem("access_token", access_token);
+  localStorage.setItem("refresh_token", refresh_token);
 }
 
 const refreshToken = async () => {
 
   // refresh token that has been previously stored
-  const refreshToken = localStorage.getItem('refresh_token');
+  const refreshToken = localStorage.getItem("refresh_token");
   const url = "https://accounts.spotify.com/api/token";
 
   const payload = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      "Content-Type": "application/x-www-form-urlencoded"
     },
     body: new URLSearchParams({
-      grant_type: 'refresh_token',
+      grant_type: "refresh_token",
       refresh_token: refreshToken,
       client_id: clientId
     }),
@@ -46,22 +48,28 @@ const refreshToken = async () => {
   const body = await fetch(url, payload);
   const response = await body.json();
 
-  if (!response.ok && forceRefresh) {
-    window.location.href = 'auth.html';
+  if (!response.ok) {
+    if (access_token != params.get("access_token")) {
+      setTokensFromUrl();
+      refresh();
+    }
+    else if (forceRefresh) {
+      window.location.href = "auth.html";
+    }
   }
 
-  localStorage.setItem('access_token', response.access_token);
+  localStorage.setItem("access_token", response.access_token);
   if (response.refresh_token) {
-    localStorage.setItem('refresh_token', response.refresh_token);
+    localStorage.setItem("refresh_token", response.refresh_token);
   }
 
 }
 
 function refresh() {
   if (access_token) {
-    fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+    fetch("https://api.spotify.com/v1/me/player/currently-playing", {
       headers: {
-        'Authorization': 'Bearer ' + access_token
+        "Authorization": "Bearer " + access_token
       }
     })
       .then(response => {
@@ -80,12 +88,12 @@ function refresh() {
       })
       .catch(error => {
         if (error.status === 401) {
-          console.log('Refreshing token...');
+          console.log("Refreshing token...");
           refreshToken();
         }
       });
   } else if (forceRefresh) {
-    window.location.href = 'auth.html';
+    window.location.href = "auth.html";
   }
 }
 
