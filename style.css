@@ -54,6 +54,9 @@
   mask-image: url(cdmask2.png);
   mask-mode: luminance;
   mask-size: contain;
+  -webkit-mask-image: url(cdmask2.png);
+  -webkit-mask-mode: luminance;
+  -webkit-mask-size: contain;
   animation: rotate 10s linear infinite;
 }
 
@@ -63,6 +66,8 @@
   background-color: white;
   mask-image: url(cdmask2.png);
   mask-size: contain;
+  -webkit-mask-image: url(cdmask2.png);
+  -webkit-mask-size: contain;
 }
 
 @keyframes rotate {
