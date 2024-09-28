@@ -24,7 +24,7 @@ async function auth() {
   const codeChallenge = base64encode(hashed);
 
   const clientId = 'a8bf0b0fd7ee48c092792c75b493c2c3';
-  const redirectUri = 'http://localhost:5500/callback.html';
+  const redirectUri = window.location.origin + '/callback.html';
 
   const scope = 'user-read-currently-playing';
   const authUrl = new URL("https://accounts.spotify.com/authorize")

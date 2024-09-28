@@ -1,5 +1,5 @@
 const clientId = 'a8bf0b0fd7ee48c092792c75b493c2c3';
-const redirectUri = 'http://localhost:5500/callback.html';
+const redirectUri = window.location.origin + '/callback.html';
 
 const urlParams = new URLSearchParams(window.location.search);
 let code = urlParams.get('code');
