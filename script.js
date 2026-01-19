@@ -38,6 +38,13 @@ const refreshToken = async () => {
   const refreshToken = localStorage.getItem("refresh_token");
   const url = "https://accounts.spotify.com/api/token";
 
+  if (!refreshToken) {
+    if (forceRefresh) {
+      window.location.href = "auth.html";
+    }
+    return;
+  }
+  
   const payload = {
     method: "POST",
     headers: {
