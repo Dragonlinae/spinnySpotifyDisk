@@ -39,6 +39,11 @@ const refreshToken = async () => {
   const url = "https://accounts.spotify.com/api/token";
 
   if (!refreshToken || refreshToken === "null") {
+    console.log("No refresh token available");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    access_token = null;
+    refresh_token = null;
     if (forceRefresh) {
       window.location.href = "auth.html";
     }
