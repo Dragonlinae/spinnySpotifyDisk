@@ -53,7 +53,7 @@ const refreshToken = async () => {
   const response = await body.json();
 
   console.log(response);
-  if (!response.ok) {
+  if (response.ok) {
     if (access_token != params.get("access_token")) {
       setTokensFromUrl();
       refresh();
