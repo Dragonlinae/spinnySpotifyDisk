@@ -38,13 +38,13 @@ const refreshToken = async () => {
   const refreshToken = localStorage.getItem("refresh_token");
   const url = "https://accounts.spotify.com/api/token";
 
-  if (!refreshToken) {
+  if (!refreshToken || refreshToken === "null") {
     if (forceRefresh) {
       window.location.href = "auth.html";
     }
     return;
   }
-  
+
   const payload = {
     method: "POST",
     headers: {
@@ -65,9 +65,15 @@ const refreshToken = async () => {
       setTokensFromUrl();
       refresh();
     }
-    else if (forceRefresh) {
-      window.location.href = "auth.html";
-    }
+  } else if (forceRefresh) {
+    window.location.href = "auth.html";
+  } else {
+    console.log("Could not refresh token");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    access_token = null;
+    refresh_token = null;
+    return;
   }
 
   localStorage.setItem("access_token", response.access_token);
